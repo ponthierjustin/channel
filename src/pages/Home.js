@@ -5,9 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
 import API from "../utils/API";
-import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles((theme) => ({
   paperText: {
@@ -71,11 +69,13 @@ const Home = () => {
             {charts.map((chart) => (
               <div>
                 <Box p={1}>
-                  <button>
-                    <a href={chart.preview} target="_blank">
-                      <img alt="cover" src={chart.album.cover_medium} />
-                    </a>
-                  </button>
+                  <a href={chart.preview} target="_blank">
+                    <img alt="cover" src={chart.album.cover_medium} />
+                  </a>
+                  <audio controls src={chart.preview}>
+                    
+                  </audio>
+
                   {/*      <Typography className={classes.topRightText}>
                     {chart.title}
                   </Typography>
