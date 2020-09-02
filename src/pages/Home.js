@@ -42,7 +42,7 @@ const Home = () => {
     API.getChart()
       .then((response) => {
         setCharts(response.data.tracks.data);
-        console.log(response.data);
+        console.log(response.data.tracks.data);
       })
       .catch((err) => console.log(err));
   };
@@ -69,19 +69,19 @@ const Home = () => {
             {charts.map((chart) => (
               <div>
                 <Box p={1}>
-                  <a href={chart.preview} target="_blank">
-                    <img alt="cover" src={chart.album.cover_medium} />
+                  <a href={chart.link} target="_blank">
+                  <img alt="cover" src={chart.album.cover_medium} />
                   </a>
-                  <audio controls src={chart.preview}>
-                    
-                  </audio>
+                 
 
-                  {/*      <Typography className={classes.topRightText}>
+                  <Typography className={classes.topRightText}>
                     {chart.title}
                   </Typography>
                   <Typography className={classes.topRightText}>
                     {chart.artist.name}
-                  </Typography> */}
+                  </Typography>
+                  <audio controls src={chart.preview}>
+                    </audio>
                 </Box>
               </div>
             ))}{" "}
