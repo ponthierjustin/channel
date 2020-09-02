@@ -1,68 +1,104 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import concert from "../images/unnamed.png";
+import Divider from "@material-ui/core/Divider";
+import API from "../utils/API";
+import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles((theme) => ({
-  topPaper: {
-    backgroundColor: "#222831",
-    height: theme.spacing(25),
-  },
   paperText: {
     fontFamily: "Ramabhadra",
-    color: "#eeeeee",
+    color: "#222831",
     textAlign: "center",
-    height: theme.spacing(10),
-    fontSize: "5.5rem",
-  },
-  middlePaper: {
-    backgroundColor: "#eeeeee",
-    alignItems: 'stretch'
-     /* height: theme.spacing(70),  */
   },
   paperLeft: {
     backgroundColor: "#eeeeee",
     fontFamily: "Ramabhadra",
-    color: "#393e46",
+    color: "#222831",
     textAlign: "center",
   },
   paperRight: {
-    backgroundColor: "#393e46",
+    backgroundColor: "#eeeeee",
     fontFamily: "Ramabhadra",
-    color: "#eeeeee",
-    textAlign: "center",
-    height: theme.spacing(70),
+    color: "#222831",
   },
-  img: {
-    width: "100%",
+  topRightText: {
+    color: "#222831",
+    textAlign: "center",
+    fontFamily: "Ramabhadra",
   },
 }));
 
 const Home = () => {
+  const [charts, setCharts] = useState([]);
+
+  useEffect(() => {
+    getChartData();
+  }, []);
+
+  const getChartData = () => {
+    API.getChart()
+      .then((response) => {
+        setCharts(response.data.tracks.data);
+        console.log(response.data.tracks.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const classes = useStyles();
   return (
     <div>
       <Nav />
       <Grid container spacing={0}>
-        <Grid item xs={6} sm={6}>
-          <Paper className={classes.topPaper} elevation={0}></Paper>
-          <Typography xs={6} className={classes.paperText} variant="h1">
+        {/*     <Grid item xs={12} sm={12}>
+          <Typography className={classes.paperText} variant="h1">
             CHANNEL
           </Typography>
+        </Grid> */}
+        <Grid item xs={12} sm={12}>
+          <Box p={0} m={5}>
+            <Typography variant="h3" className={classes.paperLeft}>
+              EXPLORE TODAY'S TOP TRACKS AND YOUR FAVORITE ARTIST
+            </Typography>
+          </Box>
         </Grid>
-        <Grid item xs={6} sm={6}></Grid>
-        <Grid className={classes.middlePaper} item xs={12} sm={5}>
-          <Typography className={classes.paperLeft}>
-            FIND YOUR NEXT FAVORITE ARTIST
-          </Typography>
-          <img className={classes.img} alt="concert" src={concert} />
+        <Grid item xs={12} sm={6}>
+          <Box display="flex" flexWrap="wrap" flexDirection="row">
+            {charts.map((chart) => (
+              <div>
+                <Box>
+                  <img alt="cover" src={chart.album.cover_medium} />
+                  {/*      <Typography className={classes.topRightText}>
+                    {chart.title}
+                  </Typography>
+                  <Typography className={classes.topRightText}>
+                    {chart.artist.name}
+                  </Typography> */}
+                </Box>
+              </div>
+            ))}{" "}
+          </Box>
         </Grid>
-        <Grid className={classes.paperRight} item xs={12} sm={7}>
-          <Typography>THIS IS WERE i WILL DISPLAY CHARTS</Typography>
+        <Grid item xs={12} sm={6}>
+          <Box display="flex" flexWrap="wrap" flexDirection="row">
+            {charts.map((chart) => (
+              <div>
+                <Box>
+                  <img alt="cover" src={chart.album.cover_medium} />
+                  {/*      <Typography className={classes.topRightText}>
+                    {chart.title}
+                  </Typography>
+                  <Typography className={classes.topRightText}>
+                    {chart.artist.name}
+                  </Typography> */}
+                </Box>
+              </div>
+            ))}{" "}
+          </Box>
         </Grid>
       </Grid>
     </div>

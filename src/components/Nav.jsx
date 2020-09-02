@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textAlign: "left",
     fontFamily: "Ramabhadra",
-    color: "#eeeeee",
+    color: "#222831",
   },
 }));
 
