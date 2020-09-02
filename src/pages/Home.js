@@ -44,7 +44,7 @@ const Home = () => {
     API.getChart()
       .then((response) => {
         setCharts(response.data.tracks.data);
-        console.log(response.data.tracks.data);
+        console.log(response.data);
       })
       .catch((err) => console.log(err));
   };
@@ -66,29 +66,16 @@ const Home = () => {
             </Typography>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12}>
           <Box display="flex" flexWrap="wrap" flexDirection="row">
             {charts.map((chart) => (
               <div>
-                <Box>
-                  <img alt="cover" src={chart.album.cover_medium} />
-                  {/*      <Typography className={classes.topRightText}>
-                    {chart.title}
-                  </Typography>
-                  <Typography className={classes.topRightText}>
-                    {chart.artist.name}
-                  </Typography> */}
-                </Box>
-              </div>
-            ))}{" "}
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Box display="flex" flexWrap="wrap" flexDirection="row">
-            {charts.map((chart) => (
-              <div>
-                <Box>
-                  <img alt="cover" src={chart.album.cover_medium} />
+                <Box p={1}>
+                  <button>
+                    <a href={chart.preview} target="_blank">
+                      <img alt="cover" src={chart.album.cover_medium} />
+                    </a>
+                  </button>
                   {/*      <Typography className={classes.topRightText}>
                     {chart.title}
                   </Typography>
